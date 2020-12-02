@@ -27,6 +27,5 @@ readInterface.on('line', (line) => {
 });
 
 const isPasswordValid = (password, policy) => {
-  console.log("password: " + password + ", char: " + policy.char + ", pos1: " + policy.pos1 + " " + password.charAt(policy.pos1 - 1) + ", pos2: " + policy.pos2 + " " + password.charAt(policy.pos2 - 1));
   return password.charAt(policy.pos1 - 1) === policy.char ^ password.charAt(policy.pos2 - 1) === policy.char;
 }
