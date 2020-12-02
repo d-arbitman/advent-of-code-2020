@@ -18,7 +18,6 @@ readInterface.on('line', (line) => {
         console.log(input[i] * input[j]);
         process.exit(0);
       }
-      /*console.log("nums: " + input[i] + ", " + input[j] + ", " + ());*/
     }
   }
 });
