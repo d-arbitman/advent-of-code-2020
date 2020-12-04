@@ -8,7 +8,6 @@ const readInterface = readline.createInterface({
   console: false,
 });
 
-
 readInterface.on('line', (line) => {
   input.push(parseInt(line));
 }).on('close', () => {

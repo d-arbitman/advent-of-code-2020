@@ -31,7 +31,6 @@ const validatePassport = (passport) => {
 };
 
 const validateFields = (passport, fields) => {
-
   for (let i = 0; i < fields.length; i++) {
     if (!passport[fields[i]]) {
       return false;
@@ -44,6 +43,7 @@ const validateFields = (passport, fields) => {
 const stringToPassport = (str) => {
   let passport = {};
   const fields = str.split("\n").join(" ").split(" ");
+
   for (let i = 0; i < fields.length; i++) {
     const [name, value] = fields[i].split(":");
     passport[name] = value;

@@ -26,7 +26,7 @@ readInterface.on('line', (line) => {
   console.log("validPassports: " + validPassports);
 });
 
-const validatePassport = (passport) => {
+const validatePassport = (passport = { byr: '', iyr: '', eyr: '', hgt: '', hcl: '', ecl: '', pid: '' }) => {
   if (!validateYear(passport.byr, 1920, 2002)) {
     return false;
   }
@@ -43,7 +43,7 @@ const validatePassport = (passport) => {
     return false;
   }
 
-  if (!passport.hcl || !passport.hcl.match(/^\#[0-9a-f]{6}$/i)) {
+  if (!passport.hcl || !passport.hcl.match(/^#[0-9a-f]{6}$/i)) {
     return false;
   }
 
@@ -51,11 +51,7 @@ const validatePassport = (passport) => {
     return false;
   }
 
-  if (!passport.pid || !passport.pid.match(/^\d{9}$/)) {
-    return false;
-  }
-
-  return true;
+  return (passport.pid && passport.pid.match(/^\d{9}$/));
 };
 
 const validateEyeColor = (color) => {
@@ -66,32 +62,31 @@ const validateEyeColor = (color) => {
 
 const validateHeight = (height) => {
   const matches = (height || '').match(/(\d+)([a-z]{2})/i);
-  if (!matches || matches.length !== 3 || (matches[2] === 'in' && !validateRange(matches[1], 59, 76)) || (matches[2] === 'cm' && !validateRange(matches[1], 150, 193))) {
-    return false;
+
+  if (matches && matches.length === 3) {
+    const numericHeight = matches[1];
+    const units = matches[2];
+
+    return (numericHeight && units &&
+      ((units === 'in' && validateRange(numericHeight, 59, 76))
+        || (units === 'cm' && validateRange(numericHeight, 150, 193))));
   }
 
-  return true;
+  return false;
 };
 
 const validateRange = (num, min, max) => {
-  if (parseInt(num) < min || parseInt(num) > max) {
-    return false;
-  }
-
-  return true;
+  return !(parseInt(num) < min || parseInt(num) > max);
 };
 
 const validateYear = (year, min, max) => {
-  if (!year || year.length !== 4 || !validateRange(year, min, max)) {
-    return false;
-  }
-
-  return true;
+  return (year && year.length === 4 && validateRange(year, min, max));
 };
 
 const stringToPassport = (str) => {
   let passport = {};
-  const fields = str.split("\n").join(" ").split(" ");
+  const fields = str.split(/\s+/);
+
   for (let i = 0; i < fields.length; i++) {
     const [name, value] = fields[i].split(":");
     passport[name] = value;
