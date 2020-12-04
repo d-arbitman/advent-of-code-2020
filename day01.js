@@ -1,11 +1,11 @@
 const readline = require('readline');
-const fs = require('fs')
+const fs = require('fs');
 let input = [];
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream('./day01.input'),
-    /*output: process.stdout,*/
-    console: false
+  input: fs.createReadStream('./day01.input'),
+  /*output: process.stdout,*/
+  console: false,
 });
 
 

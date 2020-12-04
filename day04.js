@@ -1,11 +1,11 @@
 const readline = require('readline');
-const fs = require('fs')
+const fs = require('fs');
 let input = "";
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream('./day04.input'),
-    /*output: process.stdout,*/
-    console: false
+  input: fs.createReadStream('./day04.input'),
+  /*output: process.stdout,*/
+  console: false,
 });
 
 
@@ -28,7 +28,7 @@ readInterface.on('line', (line) => {
 
 const validatePassport = (passport) => {
   return validateFields(passport, ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']);
-}
+};
 
 const validateFields = (passport, fields) => {
 
@@ -39,7 +39,7 @@ const validateFields = (passport, fields) => {
   }
 
   return true;
-}
+};
 
 const stringToPassport = (str) => {
   let passport = {};
@@ -50,4 +50,4 @@ const stringToPassport = (str) => {
   }
 
   return passport;
-}
+};

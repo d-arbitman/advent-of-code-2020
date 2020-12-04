@@ -1,11 +1,11 @@
 const readline = require('readline');
-const fs = require('fs')
+const fs = require('fs');
 let input = "";
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream('./day04.input'),
-    /*output: process.stdout,*/
-    console: false
+  input: fs.createReadStream('./day04.input'),
+  /*output: process.stdout,*/
+  console: false,
 });
 
 
@@ -56,13 +56,13 @@ const validatePassport = (passport) => {
   }
 
   return true;
-}
+};
 
 const validateEyeColor = (color) => {
   const eyeColors = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'];
 
   return eyeColors.includes(color);
-}
+};
 
 const validateHeight = (height) => {
   const matches = (height || '').match(/(\d+)([a-z]{2})/i);
@@ -71,7 +71,7 @@ const validateHeight = (height) => {
   }
 
   return true;
-}
+};
 
 const validateRange = (num, min, max) => {
   if (parseInt(num) < min || parseInt(num) > max) {
@@ -79,7 +79,7 @@ const validateRange = (num, min, max) => {
   }
 
   return true;
-}
+};
 
 const validateYear = (year, min, max) => {
   if (!year || year.length !== 4 || !validateRange(year, min, max)) {
@@ -87,7 +87,7 @@ const validateYear = (year, min, max) => {
   }
 
   return true;
-}
+};
 
 const stringToPassport = (str) => {
   let passport = {};
@@ -98,4 +98,4 @@ const stringToPassport = (str) => {
   }
 
   return passport;
-}
+};

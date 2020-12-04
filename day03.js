@@ -1,11 +1,11 @@
 const readline = require('readline');
-const fs = require('fs')
+const fs = require('fs');
 let input = [];
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream('./day03.input'),
-    /*output: process.stdout,*/
-    console: false
+  input: fs.createReadStream('./day03.input'),
+  /*output: process.stdout,*/
+  console: false,
 });
 
 readInterface.on('line', (line) => {
@@ -31,4 +31,4 @@ const countCharacterInstances = (str, c) => {
   }
 
   return instances;
-}
+};

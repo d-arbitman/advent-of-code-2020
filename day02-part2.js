@@ -1,11 +1,11 @@
 const readline = require('readline');
-const fs = require('fs')
+const fs = require('fs');
 let input = [];
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream('./day02.input'),
-    /*output: process.stdout,*/
-    console: false
+  input: fs.createReadStream('./day02.input'),
+  /*output: process.stdout,*/
+  console: false,
 });
 
 
@@ -17,7 +17,7 @@ readInterface.on('line', (line) => {
     const policy = {
       pos1: matches[1],
       pos2: matches[2],
-      char: matches[3]
+      char: matches[3],
     };
     const password = matches[4];
     return isPasswordValid(password, policy);
@@ -28,4 +28,4 @@ readInterface.on('line', (line) => {
 
 const isPasswordValid = (password, policy) => {
   return password.charAt(policy.pos1 - 1) === policy.char ^ password.charAt(policy.pos2 - 1) === policy.char;
-}
+};
