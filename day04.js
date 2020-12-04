@@ -27,63 +27,15 @@ readInterface.on('line', (line) => {
 });
 
 const validatePassport = (passport) => {
-  if (!validateYear(passport.byr, 1920, 2002)) {
-    return false;
-  }
-
-  if (!validateYear(passport.iyr, 2010, 2020)) {
-    return false;
-  }
-
-  if (!validateYear(passport.eyr, 2020, 2030)) {
-    return false;
-  }
-
-  if (!validateHeight(passport.hgt)) {
-    return false;
-  }
-
-  if (!passport.hcl || !passport.hcl.match(/^\#[0-9a-f]{6}$/i)) {
-    return false;
-  }
-
-  if (!validateEyeColor(passport.ecl)) {
-    return false;
-  }
-
-  if (!passport.pid || !passport.pid.match(/^\d{9}$/)) {
-    return false;
-  }
-
-  return true;
+  return validateFields(passport, ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']);
 }
 
-const validateEyeColor = (color) => {
-  const eyeColors = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'];
+const validateFields = (passport, fields) => {
 
-  return eyeColors.includes(color);
-}
-
-const validateHeight = (height) => {
-  const matches = (height || '').match(/(\d+)([a-z]{2})/i);
-  if (!matches || matches.length !== 3 || (matches[2] === 'in' && !validateRange(matches[1], 59, 76)) || (matches[2] === 'cm' && !validateRange(matches[1], 150, 193))) {
-    return false;
-  }
-
-  return true;
-}
-
-const validateRange = (num, min, max) => {
-  if (parseInt(num) < min || parseInt(num) > max) {
-    return false;
-  }
-
-  return true;
-}
-
-const validateYear = (year, min, max) => {
-  if (!year || year.length !== 4 || !validateRange(year, min, max)) {
-    return false;
+  for (let i = 0; i < fields.length; i++) {
+    if (!passport[fields[i]]) {
+      return false;
+    }
   }
 
   return true;
