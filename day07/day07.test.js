@@ -26,4 +26,4 @@ faded blue bags contain no other bags.
 dotted black bags contain no other bags.`.split("\n");
 
   expect(lib.countContents(lib.parseBagsPart2(exampleInput), 'shiny gold')).toBe(32);
-})
+});

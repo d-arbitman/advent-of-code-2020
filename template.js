@@ -1,3 +1,4 @@
+const lib = require('./dayXX.library.js');
 const readline = require('readline');
 const fs = require('fs');
 let input = [];
