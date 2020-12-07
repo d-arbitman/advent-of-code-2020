@@ -1,9 +1,10 @@
+const lib = require('./day01.library.js');
 const readline = require('readline');
 const fs = require('fs');
 let input = [];
 
 const readInterface = readline.createInterface({
-  input: fs.createReadStream('./day01.input'),
+  input: fs.createReadStream('./day01/day01.input'),
   /*output: process.stdout,*/
   console: false,
 });
@@ -11,12 +12,6 @@ const readInterface = readline.createInterface({
 readInterface.on('line', (line) => {
   input.push(parseInt(line));
 }).on('close', () => {
-  for (let i = 0; i < input.length; i++) {
-    for (let j = 0; j < input.length; j++) {
-      if (input[i] + input[j] === 2020) {
-        console.log(input[i] * input[j]);
-        process.exit(0);
-      }
-    }
-  }
+  console.log('part 1: ' + lib.part1(input, 2020));
+  console.log('part 1: ' + lib.part2(input, 2020));
 });

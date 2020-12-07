@@ -20,7 +20,6 @@ readInterface.on('line', (line) => {
 
   for (let i = 0; i < input.length; i++) {
     const [row, col] = calculateSeatPosition(input[i]);
-    //console.log(input[i] + ": " + row + " " + col);
 
     seats.push(parseInt(row * 8 + col));
     if (row * 8 + col > maxSeatId) {
@@ -46,14 +45,12 @@ const calculateSeatPosition = (boardingPass) => {
   let maxCol = 7
   for (let i = 0; i < 7; i++) {
     const halfWayPoint = Math.ceil((maxRow - minRow) / 2);
-    //console.log("position: " + boardingPass[i]);
-    //console.log("old minRow: " + minRow + ", old maxRow: " + maxRow + ", halfWayPoint: " + halfWayPoint);
+
     if (boardingPass[i] === 'F') {
       maxRow -= halfWayPoint;
     } else {
       minRow += halfWayPoint;
     }
-    //console.log("new minRow: " + minRow + ", new maxRow: " + maxRow);
   }
 
   for (let i = 7; i < 10; i++) {
