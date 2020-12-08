@@ -98,9 +98,12 @@ module.exports = class Computer {
           if (this.debug) {
             console.log(`  nop`);
           }
+          break;
 
         default:
-          break;
+          if (this.debug) {
+            console.log(`  Unknown operation: ${instruction.operation}`);
+          }
       }
     }
 
