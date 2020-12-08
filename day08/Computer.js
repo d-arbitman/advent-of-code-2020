@@ -12,7 +12,7 @@ module.exports = class Computer {
       parsedCode.push({
         operation: operation,
         argument: parseInt(argument),
-        executed: false
+        executed: false,
       });
     }
 
@@ -25,17 +25,16 @@ module.exports = class Computer {
     }
 
     this.instructionPointer = 0;
-    this.previousInstructionPointer = 0;
     this.accumulator = 0;
     this.exitingNormally = false;
-    this.code = JSON.parse(JSON.stringify(this.parseCode(this.initialCode.split("\n"))));
+    this.code = this.parseCode(this.initialCode.split("\n"));
   }
 
   fixInstruction() {
     for (let i = 0; i < this.code.length || this.exitingNormally; i++) {
       this.reset();
 
-      switch(this.code[i].operation) {
+      switch (this.code[i].operation) {
         case 'jmp':
           if (this.debug) {
             console.log('changing ' + i + ' to nop');
@@ -71,7 +70,7 @@ module.exports = class Computer {
       const instruction = this.code[this.instructionPointer];
 
       if (this.debug) {
-        console.log(`line ${this.instructionPointer}/${this.code.length}`);
+        console.log(`line ${ this.instructionPointer }/${ this.code.length }`);
       }
 
       if (instruction.executed) {
@@ -83,14 +82,14 @@ module.exports = class Computer {
       switch (instruction.operation) {
         case 'acc':
           if (this.debug) {
-            console.log(`  acc (${instruction.argument}): from ${this.accumulator} to ${this.accumulator + instruction.argument}`);
+            console.log(`  acc (${ instruction.argument }): from ${ this.accumulator } to ${ this.accumulator + instruction.argument }`);
           }
 
           this.accumulator += instruction.argument;
           break;
         case 'jmp':
           if (this.debug) {
-            console.log(`  jump (${instruction.argument}): from ${this.instructionPointer} to ${this.instructionPointer + instruction.argument}`);
+            console.log(`  jump (${ instruction.argument }): from ${ this.instructionPointer } to ${ this.instructionPointer + instruction.argument }`);
           }
 
           nextInstructionOffset = instruction.argument;
@@ -100,13 +99,11 @@ module.exports = class Computer {
             console.log(`  nop`);
           }
 
-          default:
-            break;
+        default:
+          break;
       }
-
-      this.previousInstructionPointer = this.instructionPointer;
     }
 
     this.exitingNormally = (this.instructionPointer === this.code.length);
   }
-}
+};
