@@ -50,6 +50,7 @@ module.exports = class Computer {
           }
 
           this.code[i].operation = 'jmp';
+          break;
 
         default:
       }
