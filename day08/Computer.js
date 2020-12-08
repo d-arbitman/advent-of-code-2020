@@ -1,6 +1,7 @@
 module.exports = class Computer {
   constructor(code) {
     this.initialCode = code;
+    this.debug = false;
     this.reset();
   }
 
@@ -11,6 +12,7 @@ module.exports = class Computer {
       parsedCode.push({
         operation: operation,
         argument: parseInt(argument),
+        executed: false
       });
     }
 
@@ -25,10 +27,8 @@ module.exports = class Computer {
     this.instructionPointer = 0;
     this.previousInstructionPointer = 0;
     this.accumulator = 0;
-    this.debug = false;
     this.exitingNormally = false;
     this.code = JSON.parse(JSON.stringify(this.parseCode(this.initialCode.split("\n"))));
-    this.executedInstructions = new Set();
   }
 
   fixInstruction() {
@@ -68,10 +68,10 @@ module.exports = class Computer {
         console.log(`line ${this.instructionPointer}/${this.code.length}`);
       }
 
-      if (this.executedInstructions.has(this.instructionPointer)) {
+      if (instruction.executed) {
         return;
       } else {
-        this.executedInstructions.add(this.instructionPointer);
+        this.code[this.instructionPointer].executed = true;
       }
 
       switch (instruction.operation) {
