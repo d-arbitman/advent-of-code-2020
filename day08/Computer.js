@@ -35,18 +35,23 @@ module.exports = class Computer {
     for (let i = 0; i < this.code.length || this.exitingNormally; i++) {
       this.reset();
 
-      if (this.code[i].operation === 'jmp') {
-        if (this.debug) {
-          console.log('changing ' + i + ' to nop');
-        }
+      switch(this.code[i].operation) {
+        case 'jmp':
+          if (this.debug) {
+            console.log('changing ' + i + ' to nop');
+          }
 
-        this.code[i].operation = 'nop';
-      } else if (this.code[i].operation === 'nop') {
-        if (this.debug) {
-          console.log('changing ' + i + ' to jmp');
-        }
+          this.code[i].operation = 'nop';
+          break;
 
-        this.code[i].operation = 'jmp';
+        case 'nop':
+          if (this.debug) {
+            console.log('changing ' + i + ' to jmp');
+          }
+
+          this.code[i].operation = 'jmp';
+
+        default:
       }
 
       this.run();
