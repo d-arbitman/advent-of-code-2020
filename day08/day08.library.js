@@ -1,4 +1,4 @@
-const Computer = require('./Computer.js');
+const Computer = require('../Computer.js');
 
 module.exports = function() {
   let module = {};
