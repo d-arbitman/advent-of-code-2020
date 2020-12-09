@@ -52,4 +52,14 @@ test('day 09, part 2 example input', () => {
   let index = exampleInput.indexOf(part1);
 
   expect(lib.part2(exampleInput, index)).toBe(62);
-})
+});
+
+test('day 09, default return', () => {
+  const exampleInput = `1
+3
+5
+`.split("\n").map(x => parseInt(x));
+
+  expect(lib.part1(exampleInput, 150)).toBe(null);
+  expect(lib.part2(exampleInput, 0)).toBe(null);
+});

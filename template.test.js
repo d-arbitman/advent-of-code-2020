@@ -10,4 +10,4 @@ test('day XX, part 2 example input', () => {
   const exampleInput = ``.split("\n");
 
   expect(lib.part2(exampleInput)).toBe(0);
-})
+});

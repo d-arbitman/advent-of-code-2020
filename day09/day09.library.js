@@ -7,11 +7,21 @@ module.exports = function() {
         return input[i];
       }
     }
+
+    return null;
   };
 
   module.part2 = (input, index) => {
     for (let i = 0; i < input.length; i++) {
+      if (i === index) {
+        continue;
+      }
+
       for (let j = 1; j < input.length; j++) {
+        if (j === index) {
+          continue;
+        }
+
         if (input.slice(i, j).reduce((a, b) => a + b, 0) === input[index]) {
           let nums = input.slice(i, j);
           nums.sort();
@@ -19,7 +29,8 @@ module.exports = function() {
         }
       }
     }
-    return 0;
+
+    return null;
   };
 
   module.isNumberSumFromPreamble = (input, preambleLength, index) => {

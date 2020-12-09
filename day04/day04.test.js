@@ -44,8 +44,7 @@ hgt:164cm byr:2001 iyr:2015 cid:88
 pid:545766238 ecl:hzl
 eyr:2022
 
-iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
-`;
+iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
 
   expect(lib.part2(exampleInput)).toBe(4);
 });
@@ -53,6 +52,24 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
 test('day 04 accessory functions', () => {
   const exampleInput = `byr:2000 iyr:2005
 
-byr:2000 iyr:2015 eyr:2015`;
+byr:2000 iyr:2015 eyr:2015
+
+iyr:2010 hgt:200cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
+
+hcl:#888785
+hgt:164cm byr:2001 iyr:2015 cid:88
+pid:545766238 ecl:hazel
+eyr:2022`;
+
   expect(lib.part2(exampleInput)).toBe(0);
+  expect(lib.stringToPassport("iyr:2010 hgt:200cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719"))
+    .toStrictEqual({
+      iyr: '2010',
+      hgt: '200cm',
+      hcl: '#b6652a',
+      ecl: 'blu',
+      byr: '1944',
+      eyr: '2021',
+      pid: '093154719'
+    });
 });
