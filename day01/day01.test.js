@@ -12,7 +12,24 @@ test('day 01, part 1 exampleInput', () => {
 });
 
 test('day 01, part 2 example input', () => {
-  const exampleInput = ``.split("\n");
+  const exampleInput = `1721
+979
+366
+299
+675
+1456`.split("\n");
 
-  expect(lib.part2(exampleInput)).toBe(0);
-})
+  expect(lib.part2(exampleInput, 2020)).toBe(241861950);
+});
+
+test('day 01, default return', () => {
+  const exampleInput = `1721
+979
+366
+299
+675
+1456`.split("\n");
+
+  expect(lib.part1(exampleInput, 500)).toBe(0);
+  expect(lib.part2(exampleInput, 500)).toBe(0);
+});

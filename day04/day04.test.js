@@ -48,4 +48,11 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
 `;
 
   expect(lib.part2(exampleInput)).toBe(4);
-})
+});
+
+test('day 04 accessory functions', () => {
+  const exampleInput = `byr:2000 iyr:2005
+
+byr:2000 iyr:2015 eyr:2015`;
+  expect(lib.part2(exampleInput)).toBe(0);
+});

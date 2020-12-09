@@ -8,7 +8,7 @@ module.exports = class Computer {
   parseCode(code) {
     let parsedCode = [];
     for (let i = 0; i < code.length; i++) {
-      const [operation, argument] = code[i].split(' ');
+      const [operation, argument] = code[i].trim() .split(' ');
       parsedCode.push({
         operation: operation,
         argument: parseInt(argument),
