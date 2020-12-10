@@ -4,7 +4,7 @@ const fs = require('fs');
 let input = [];
 
 const readInterface = readline.createInterface({
-  input: fs.createReadStream('./dayXX.input'),
+  input: fs.createReadStream('./dayvXX/dayXX.input'),
   /*output: process.stdout,*/
   console: false,
 });
@@ -13,5 +13,6 @@ const readInterface = readline.createInterface({
 readInterface.on('line', (line) => {
   input.push(line);
 }).on('close', () => {
-
+  console.log("part 1: " + lib.part2(input));
+  console.log("part 2: ", lib.part2(input));
 });
