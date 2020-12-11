@@ -110,14 +110,11 @@ module.exports = function () {
 
   module.countNeighborsPart2 = (input, x, y) => {
     let neighbors = [];
-    neighbors.push(module.findFirstSeat(input, x, y, -1, -1));
-    neighbors.push(module.findFirstSeat(input, x, y, -1, 0));
-    neighbors.push(module.findFirstSeat(input, x, y, -1, 1));
-    neighbors.push(module.findFirstSeat(input, x, y, 0, 1));
-    neighbors.push(module.findFirstSeat(input, x, y, 1, 1));
-    neighbors.push(module.findFirstSeat(input, x, y, 1, 0));
-    neighbors.push(module.findFirstSeat(input, x, y, 1, -1));
-    neighbors.push(module.findFirstSeat(input, x, y, 0, -1));
+    let directions = [[-1, 1], [-1, 0], [-1, -1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
+
+    for (let i = 0; i < directions.length; i++) {
+      neighbors.push(module.findFirstSeat(input, x, y, directions[i][0], directions[i][1]));
+    }
 
     return neighbors.filter(n => n === '#').length;
   };
