@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = (() => {
   let module = {};
 
   module.part1 = () => {
@@ -10,4 +10,4 @@ module.exports = function() {
   };
 
   return module;
-}();
+})();

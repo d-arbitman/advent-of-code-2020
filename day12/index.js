@@ -1,10 +1,10 @@
-const lib = require('./dayXX.library.js');
+const lib = require('./day12.library.js');
 const readline = require('readline');
 const fs = require('fs');
 let input = [];
 
 const readInterface = readline.createInterface({
-  input: fs.createReadStream('./dayXX/dayXX.input'),
+  input: fs.createReadStream('./day12/day12.input'),
   /*output: process.stdout,*/
   console: false,
 });

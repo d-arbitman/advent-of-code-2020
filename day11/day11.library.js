@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = (() => {
   let module = {};
 
   module.part1 = (input) => {
@@ -40,6 +40,7 @@ module.exports = function () {
 
   module.countNeighborsPart1 = (input, x, y) => {
     let count = 0;
+
     for (let i = -1; i < 2; i++) {
       for (let j = -1; j < 2; j++) {
         if (!module.isValidSeat(input, x + i, y + j) || (i === 0 && j === 0)) {
@@ -51,6 +52,7 @@ module.exports = function () {
         }
       }
     }
+
     return count;
   };
 
@@ -136,4 +138,4 @@ module.exports = function () {
   };
 
   return module;
-}();
+})();

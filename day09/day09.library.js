@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = (() => {
   let module = {};
 
   module.part1 = (input, preambleLength) => {
@@ -48,4 +48,4 @@ module.exports = function() {
   }
 
   return module;
-}();
+})();
