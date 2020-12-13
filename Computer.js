@@ -7,11 +7,13 @@ module.exports = class Computer {
 
   parseCode(code) {
     let parsedCode = [];
+
     for (let i = 0; i < code.length; i++) {
-      const [operation, argument] = code[i].trim() .split(' ');
+      const line = code[i].trim();
+
       parsedCode.push({
-        operation: operation,
-        argument: parseInt(argument),
+        operation: line.substr(0, 3),
+        argument: parseInt(line.trim().substr(4)),
         executed: false,
       });
     }
@@ -31,27 +33,17 @@ module.exports = class Computer {
   }
 
   fixInstruction() {
-    for (let i = 0; i < this.code.length || this.exitingNormally; i++) {
+    for (let i = 0; i < this.code.length; i++) {
       this.reset();
 
-      switch (this.code[i].operation) {
-        case 'jmp':
+      if (this.code[i].operation === 'jmp' || this.code[i].operation === 'nop') {
+          const newOp = this.code[i].operation === 'jmp' ? 'nop' : 'jmp';
+
           if (this.debug) {
-            console.log('changing ' + i + ' to nop');
+            console.log('changing ' + i + ' to ' + newOp);
           }
 
-          this.code[i].operation = 'nop';
-          break;
-
-        case 'nop':
-          if (this.debug) {
-            console.log('changing ' + i + ' to jmp');
-          }
-
-          this.code[i].operation = 'jmp';
-          break;
-
-        default:
+          this.code[i].operation = newOp;
       }
 
       this.run();
@@ -102,7 +94,7 @@ module.exports = class Computer {
 
         default:
           if (this.debug) {
-            console.log(`  Unknown operation: ${instruction.operation}`);
+            console.log(`  Unknown operation: ${ instruction.operation }`);
           }
       }
     }

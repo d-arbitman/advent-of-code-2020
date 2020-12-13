@@ -18,7 +18,7 @@ module.exports = (() => {
   };
 
   module.part2 = (input) => {
-    let buses = input[1]
+    const buses = input[1]
         .split(",")
         .sort((a, b) => b.num - a.num)
         .map((x, i) => {
@@ -45,6 +45,7 @@ module.exports = (() => {
     return index;
   };
 
+  // to fix https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
   module.absValueMod = (a, n) => {
     a = Number(a);
     n = Number(n);

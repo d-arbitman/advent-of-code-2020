@@ -1,15 +1,13 @@
-module.exports = function() {
+module.exports = function () {
   let module = {};
 
   module.canEventuallyContainShinyGold = (parsedBags, bag) => {
-    let canBagEventuallyContainShinyGold = false;
+    let canBagEventuallyContainShinyGold;
 
-    if (parsedBags[bag] === undefined) {
+    if (parsedBags[bag] === undefined || parsedBags[bag][0] === 'no other') {
       canBagEventuallyContainShinyGold = false;
     } else if (parsedBags[bag].includes('shiny gold')) {
       canBagEventuallyContainShinyGold = true;
-    } else if (parsedBags[bag][0] === 'no other') {
-      canBagEventuallyContainShinyGold = false;
     } else {
       for (let i = 0; i < parsedBags[bag].length; i++) {
         if (module.canEventuallyContainShinyGold(parsedBags, parsedBags[bag][i])) {
@@ -25,17 +23,17 @@ module.exports = function() {
     let parsedBags = {};
 
     for (let i = 0; i < input.length; i++) {
-      const matches = input[i].match(/^(.+) bags.*contain.(.*)/i);
+      const matches = input[i].match(/^(.+) bags? contain.(.*)/i);
 
       if (matches) {
-        const bagTypes = [...matches[2].matchAll(/ ([a-z ]+) bag./g)];
+        const bagTypes = [...matches[2].matchAll(/ ([a-z ]+) bags?/g)];
 
         for (let j = 0; j < bagTypes.length; j++) {
           if (!parsedBags[matches[1]]) {
-            parsedBags[matches[1]] = [bagTypes[j][1]];
-          } else {
-            parsedBags[matches[1]].push(bagTypes[j][1]);
+            parsedBags[matches[1]] = [];
           }
+
+          parsedBags[matches[1]].push(bagTypes[j][1]);
         }
       }
     }
@@ -47,7 +45,7 @@ module.exports = function() {
     let parsedBags = module.parseBagsPart1(input);
     let canContainShinyGoldBag = 0;
 
-    for (bag in parsedBags) {
+    for (let bag in parsedBags) {
       if (module.canEventuallyContainShinyGold(parsedBags, bag)) {
         canContainShinyGoldBag++;
       }
@@ -63,21 +61,25 @@ module.exports = function() {
       const matches = input[i].match(/^(.+) bags.*contain.(.*)/i);
 
       if (matches) {
-        const bagTypes = [...matches[2].matchAll(/(\d*) ([a-z ]+) bag./gi)];
+        const bagTypes = [...matches[2].matchAll(/(\d*) ([a-z ]+) bags?/gi)];
+
         for (let j = 0; j < bagTypes.length; j++) {
-          let b = {color: bagTypes[j][2], count: bagTypes[j][1] ? parseInt(bagTypes[j][1]) : 0};
+          const bag = {
+            color: bagTypes[j][2],
+            count: bagTypes[j][1] ? parseInt(bagTypes[j][1]) : 0,
+          };
 
           if (!parsedBags[matches[1]]) {
-            parsedBags[matches[1]] = [b];
-          } else {
-            parsedBags[matches[1]].push(b);
+            parsedBags[matches[1]] = [];
           }
+
+          parsedBags[matches[1]].push(bag);
         }
       }
     }
 
     return parsedBags;
-  }
+  };
 
   module.countContents = (parsedBags, bag) => {
     let count = 0;
