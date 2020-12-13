@@ -3,7 +3,7 @@ const fs = require('fs');
 let input = [];
 
 const readInterface = readline.createInterface({
-  input: fs.createReadStream('./day05.input'),
+  input: fs.createReadStream('./day05/day05.input'),
   /*output: process.stdout,*/
   console: false,
 });
