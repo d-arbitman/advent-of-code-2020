@@ -36,9 +36,7 @@ module.exports = (() => {
   module.isNumberSumFromPreamble = (input, preambleLength, index) => {
     for (let i = index - preambleLength; i < index; i++) {
       for (let j = index - preambleLength; j < index; j++) {
-        if (i === j) {
-          continue;
-        } else if (input[i] + input[j] === input[index]) {
+        if (input[i] + input[j] === input[index]) {
           return true;
         }
       }

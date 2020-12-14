@@ -1,6 +1,6 @@
 module.exports = class Computer {
   constructor(code) {
-    this.initialCode = code;
+    this.initialCode = this.parseCode(code.split("\n"));
     this.debug = false;
     this.reset();
   }
@@ -29,7 +29,7 @@ module.exports = class Computer {
     this.instructionPointer = 0;
     this.accumulator = 0;
     this.exitingNormally = false;
-    this.code = this.parseCode(this.initialCode.split("\n"));
+    this.code = JSON.parse(JSON.stringify(this.initialCode));
   }
 
   fixInstruction() {

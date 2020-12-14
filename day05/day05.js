@@ -15,13 +15,11 @@ readInterface.on('line', (line) => {
   let seats = [];
   let maxSeatId = 0;
   let minSeatId = 1000;
-  const numberOfRows = 127;
-  const numberOfColumns = 8
 
   for (let i = 0; i < input.length; i++) {
     const [row, col] = calculateSeatPosition(input[i]);
 
-    seats.push(parseInt(row * 8 + col));
+    seats.push(row * 8 + col);
     if (row * 8 + col > maxSeatId) {
       maxSeatId = row * 8 + col;
     } else if (row * 8 + col < minSeatId) {
@@ -31,6 +29,7 @@ readInterface.on('line', (line) => {
 
   seats = seats.sort((a, b) => a - b);
 
+  console.log('maxSeatId: ' + seats[seats.length - 1]);
   seats
     .filter((seatId, i, rows) => rows[i + 1] && rows[i + 1] === seatId + 2)
     .map(i => console.log('my seat: ' + (i + 1)));
@@ -43,6 +42,7 @@ const calculateSeatPosition = (boardingPass) => {
   let maxRow = 127;
   let minCol = 0;
   let maxCol = 7
+
   for (let i = 0; i < 7; i++) {
     const halfWayPoint = Math.ceil((maxRow - minRow) / 2);
 
