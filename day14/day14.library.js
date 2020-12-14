@@ -14,34 +14,37 @@ module.exports = (() => {
       }
     }
 
+    return module.calculateSum(memory, 2);
+  };
+
+  module.calculateSum = (memory, radix) => {
     let sum = 0;
+
     Object.keys(memory).forEach(key => {
-      let mem = memory[key].join('');
-      sum += parseInt(mem, 2);
+      sum += parseInt(memory[key], radix);
     });
 
     return sum;
-  };
+  }
 
   module.part2 = (input) => {
     const instructions = module.parse(input);
     let mask = '';
     let memory = {};
-    let sum = 0;
 
     for (let i = 0; i < instructions.length; i++) {
       if (instructions[i].instr === 'setMask') {
         mask = instructions[i].mask.split('');
       } else if (instructions[i].instr === 'setMem') {
-        memory = module.applyBitmaskPart2(instructions[i].location, mask, instructions[i].value, memory);
+        module.applyBitmaskPart2(instructions[i].location, mask)
+            .forEach(key => {
+              let decimal = parseInt(key.join(''), 2);
+              memory[decimal] = instructions[i].value;
+            });
       }
     }
 
-    Object.keys(memory).forEach(key => {
-      sum += parseInt(memory[key]);
-    });
-
-    return sum;
+    return module.calculateSum(memory, 10);
   };
 
   module.applyBitmask = (num, mask) => {
@@ -53,10 +56,10 @@ module.exports = (() => {
       }
     }
 
-    return binary;
+    return binary.join('');
   };
 
-  module.applyBitmaskPart2 = (num, mask, val, memory) => {
+  module.applyBitmaskPart2 = (num, mask) => {
     let keyInBinary = parseInt(num).toString(2).padStart(36, '0').split('');
 
     for (let i = 0; i < 36; i++) {
@@ -85,30 +88,30 @@ module.exports = (() => {
       });
     }
 
-    memoryLocations.forEach(key => {
-      let decimal = parseInt(key.join(''), 2);
-      memory[decimal] = val;
-    });
-
-    return memory;
+    return memoryLocations;
   };
 
   module.parse = (input) => {
     let parsed = [];
 
     for (let i = 0; i < input.length; i++) {
-      let matches;
-      if (matches = input[i].match(/^mem\[(\d+)\] = (\d+)$/)) {
+      let matches = input[i].match(/^\s*mem\[(\d+)\]\s*=\s*(\d+)\s*$/i);
+
+      if (matches) {
         parsed.push({
           instr: 'setMem',
           location: matches[1],
           value: matches[2],
         });
-      } else if (matches = input[i].match(/^mask = ([X01]+)$/i)) {
-        parsed.push({
-          instr: 'setMask',
-          mask: matches[1],
-        });
+      } else {
+        matches = input[i].match(/^\s*mask\s*=\s*([X01]+)\s*$/i);
+
+        if (matches) {
+          parsed.push({
+            instr: 'setMask',
+            mask: matches[1],
+          });
+        }
       }
     }
 
